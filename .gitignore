@@ -1,3 +1,5 @@
-.cache
 dist
+build
+
+.cache
 node_modules
