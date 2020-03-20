@@ -1,5 +1,8 @@
+.DS_Store
+
 dist
 build
+report.html
 
 .cache
 node_modules
