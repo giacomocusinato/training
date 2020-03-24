@@ -1,3 +1,4 @@
-import axios from 'axios';
+import { User } from './models/user';
 
-axios.get('http://localhost:3000/users/1').then(res => console.log(res.data));
+const user = User.makeUser({ name: 'Foo' });
+console.log(user.get('name'));

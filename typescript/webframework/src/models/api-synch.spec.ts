@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import { mocked } from 'ts-jest/utils';
-import { Synch, Synchable } from './synch';
+import { ApiSynch } from './api-synch';
 
 jest.mock('axios');
 
@@ -10,9 +10,9 @@ describe('Synch', () => {
     name: string;
   };
   let data = { id: 1, name: 'Foo' };
-  let synch: Synch<TestType>;
+  let synch: ApiSynch<TestType>;
 
-  beforeEach(() => (synch = new Synch('')));
+  beforeEach(() => (synch = new ApiSynch('')));
 
   it('fetch', async () => {
     mocked(Axios.get).mockResolvedValue({ data });

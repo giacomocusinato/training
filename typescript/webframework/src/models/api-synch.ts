@@ -1,17 +1,17 @@
-import Axios, { AxiosPromise } from 'axios';
+import Axios, { AxiosResponse } from 'axios';
 
-export interface Synchable {
+export interface HasId {
   id?: number;
 }
 
-export class Synch<T extends Synchable> {
+export class ApiSynch<T extends HasId> {
   constructor(public rootUrl: string) {}
 
-  fetch(id: number): AxiosPromise {
+  fetch(id: number): Promise<AxiosResponse> {
     return Axios.get(`${this.rootUrl}/${id}`);
   }
 
-  save(data: T): AxiosPromise {
+  async save(data: T): Promise<AxiosResponse> {
     if (data.id) {
       return Axios.put(`${this.rootUrl}/${data.id}`, data);
     }

@@ -11,12 +11,12 @@ describe('User class', () => {
 
   beforeEach(() => (attributes = new Attributes(data)));
 
-  it('get', () => {
+  test('get', () => {
     expect(attributes.get('name')).toBe('Foo');
     expect(attributes.get('age')).toBe(10);
   });
 
-  it('set', () => {
+  test('set', () => {
     attributes.set({ name: 'Bar', age: 20 });
     expect(attributes.get('name')).toBe('Bar');
     expect(attributes.get('age')).toBe(20);
@@ -25,5 +25,9 @@ describe('User class', () => {
     attributes.set({});
     expect(attributes.get('name')).toBe('Bar');
     expect(attributes.get('age')).toBe(30);
+  });
+
+  test('getAll', () => {
+    expect(attributes.getAll()).toBe(data);
   });
 });
