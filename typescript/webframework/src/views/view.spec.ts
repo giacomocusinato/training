@@ -57,7 +57,6 @@ describe('View', () => {
     const view = new TestViewWithEvents(document.getElementById('root'), model);
     view.render();
 
-    console.log(document.body.innerHTML);
     const element = document.getElementById('foo');
     (element as HTMLDivElement).click();
 
