@@ -57,11 +57,4 @@ describe('User class', () => {
       expect(user.get('age')).toBe(30);
     });
   });
-
-  // test('makeUserCollection', async () => {
-  //   mocked(Axios.get).mockResolvedValueOnce({ data: [{ id: 1, name: 'Foo' }] });
-  //   const collection = User.makeUserCollection();
-  //   await collection.fetch();
-  //   expect(collection.models.length).toBe(1);
-  // });
 });

@@ -23,6 +23,17 @@ describe('View', () => {
       };
     }
   }
+  class TestViewWithRegions extends View<TestModel, TestProps> {
+    template() {
+      return '<div id="foo"><div class="foo-region"></div></div>';
+    }
+    regionsMap() {
+      return {
+        fooRegion: '.foo-region',
+        fooMissing: '.foo-missing'
+      };
+    }
+  }
   let model: Model<TestProps>;
 
   beforeEach(() => {
@@ -61,5 +72,13 @@ describe('View', () => {
     (element as HTMLDivElement).click();
 
     expect(onClick).toBeCalled();
+  });
+
+  test('regions', () => {
+    const view = new TestViewWithRegions(
+      document.getElementById('root'),
+      model
+    );
+    view.render();
   });
 });
