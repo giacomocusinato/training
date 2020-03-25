@@ -3,6 +3,7 @@
 dist
 build
 report.html
+coverage
 
 .cache
 node_modules
