@@ -27,10 +27,12 @@ describe('Model,', () => {
   test('getters', () => {
     const onChange = jest.fn();
     model.on('change', onChange);
+    model.on('save', onChange);
     model.set({ name: 'Bar' });
+    model.trigger('save');
 
     expect(model.get('name')).toBe('Bar');
-    expect(onChange).toBeCalled();
+    expect(onChange).toBeCalledTimes(2);
   });
 
   test('fetch success', async () => {
@@ -55,6 +57,21 @@ describe('Model,', () => {
 
   test('fetch fail - no id', async () => {
     await expect(model.fetch()).rejects.toThrowError();
+  });
+
+  test('fetch fail - request error', async () => {
+    model = new Model(
+      new Attributes<TestType>({ id: 1 }),
+      new Eventing(),
+      new ApiSynch<TestType>('')
+    );
+    const onError = jest.fn();
+    model.on('error', onError);
+    mocked(Axios.get).mockRejectedValueOnce({});
+
+    await model.fetch();
+
+    expect(onError).toBeCalled();
   });
 
   test('save success', async () => {

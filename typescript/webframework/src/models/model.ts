@@ -46,17 +46,21 @@ export class Model<T extends HasId> {
     const id = this.attrs.get('id');
     if (!id) throw new Error('Cannot fetch without an id');
 
-    const resp = await this.sync.fetch(id as number);
-    return this.set(resp.data);
+    try {
+      const resp = await this.sync.fetch(id as number);
+      return this.set(resp.data);
+    } catch (err) {
+      this.events.trigger('error');
+    }
   }
 
   async save(): Promise<void> {
-    return this.sync
-      .save(this.attrs.getAll())
-      .then((resp: AxiosResponse) => {
-        this.set(resp.data);
-        this.events.trigger('save');
-      })
-      .catch(() => this.events.trigger('error'));
+    try {
+      const resp = await this.sync.save(this.attrs.getAll());
+      this.set(resp.data);
+      this.events.trigger('save');
+    } catch (err) {
+      this.events.trigger('error');
+    }
   }
 }
